@@ -21,19 +21,7 @@ const TableRow = (props: { movieDataList: Movie[] }) => {
     return (
         <tbody>
             {props.movieDataList.map(item => {
-                return (
-                    <TableData
-                        key={item.id}
-                        title={item.title}
-                        movie_rate={item.movie_rate}
-                        scope={item.scope}
-                        playing_time={item.playing_time}
-                        opening_date={item.opening_date}
-                        director={item.director}
-                        netizen_rate={item.netizen_rate}
-                        journalist_score={item.journalist_score}
-                    />
-                )
+                return <TableData key={item.id} movie={item} />
             })}
         </tbody>
     )
