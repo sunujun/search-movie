@@ -17,4 +17,17 @@ router.get('/title', (req, res) => {
     })
 })
 
+router.get('/search', (req,res) => {
+    const searchData = '%' + req.query.title + '%'
+	// sql query 문
+    const sql = 'SELECT * FROM movie WHERE title like ?'
+    db.query(sql, searchData, (err, data) => {
+        if(!err) {
+            res.send(data)
+        } else {
+            res.send(err)
+        }
+    })
+})
+
 module.exports = router

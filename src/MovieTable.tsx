@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 import Pagination from 'react-js-pagination'
 import styled from 'styled-components'
-import './MovieTable.css'
 import TableRow from './TableRow'
+import './MovieTable.css'
 
 interface Movie {
     director: string
@@ -67,50 +66,21 @@ const ScoreTableHeader = styled.th`
     border-bottom: 1px solid #444444;
 `
 
-const MovieTable = () => {
-    // DB 사용 시
-    const [movieDataList, setMovieDataList] = useState<Movie[]>([])
+const MovieTable = (props: {movieDataList: Movie[]}) => {
     const [pageNumber, setPageNumber] = useState(1)
     const [itemsCountPerPage] = useState(20)
     const lastMovieIndex = pageNumber * itemsCountPerPage
     const firstMovieIndex = lastMovieIndex - itemsCountPerPage
-    const currentMovie = movieDataList.slice(firstMovieIndex, lastMovieIndex)
-
-    // await 를 사용하기 위해 async선언
-    useEffect(() => {
-        async function getMovieData() {
-            try {
-                // 데이터를 받아오는 동안 시간이 소요됨으로 await로 대기
-                const res = await axios.get('/api/test')
-                // 받아온 데이터로 다음 작업을 진행하기 위해 await로 대기
-                // 받아온 데이터를 map 해주어 rowData 별로 inputData 선언
-                const inputData = await res.data.products.map((rowData: Movie) => ({
-                    director: rowData.director,
-                    enter_date: rowData.enter_date,
-                    id: rowData.id,
-                    image: rowData.image,
-                    journalist_count: rowData.journalist_count,
-                    journalist_score: rowData.journalist_score,
-                    movie_rate: rowData.movie_rate,
-                    netizen_count: rowData.netizen_count,
-                    netizen_rate: rowData.netizen_rate,
-                    opening_date: rowData.opening_date,
-                    playing_time: rowData.playing_time,
-                    scope: rowData.scope,
-                    title: rowData.title,
-                }))
-                // 선언된 inputData를 최초 선언한 inputData에 concat으로 추가
-                setMovieDataList(inputData.concat(inputData))
-            } catch (e) {
-                console.error(e)
-            }
-        }
-        getMovieData()
-    }, [])
+    const currentMovie = props.movieDataList.slice(firstMovieIndex, lastMovieIndex)
 
     const handlePageChange = (pageNumber: number) => {
         setPageNumber(pageNumber)
     }
+
+    // 검색이나 정렬 등으로 props.movieDataList가 변하는 경우 pageNumber를 1로 초기화
+    useEffect(() => {
+        setPageNumber(1)
+    }, [props.movieDataList])
 
     return (
         <div>
@@ -134,7 +104,7 @@ const MovieTable = () => {
                 <Pagination
                     activePage={pageNumber}
                     itemsCountPerPage={itemsCountPerPage}
-                    totalItemsCount={movieDataList.length}
+                    totalItemsCount={props.movieDataList.length}
                     pageRangeDisplayed={10}
                     prevPageText="‹"
                     nextPageText="›"
