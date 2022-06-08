@@ -949,7 +949,7 @@
     "@babel/helper-validator-option" "^7.16.7"
     "@babel/plugin-transform-typescript" "^7.17.12"
 
-"@babel/runtime@^7.8.4":
+"@babel/runtime@^7.7.6", "@babel/runtime@^7.8.4":
   "integrity" "sha512-38Y8f7YUhce/K7RMwTp7m0uCumpv9hZkitCbBClqQIow1qSbCvGkcegKOXpEWCQLfWmevgRiWokZ1GkpfhbZug=="
   "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.18.3.tgz"
   "version" "7.18.3"
@@ -1132,6 +1132,11 @@
     "@types/qs" "*"
     "@types/serve-static" "*"
 
+"@types/history@^4.7.11":
+  "integrity" "sha512-qjDJRrmvBMiTx+jyLxvLfJU7UznFuokDv4f3WRuriHKERccVpFU+8XMQUAbDzoiJCsmexxRExQeMwwCdamSKDA=="
+  "resolved" "https://registry.npmjs.org/@types/history/-/history-4.7.11.tgz"
+  "version" "4.7.11"
+
 "@types/html-minifier-terser@^6.0.0":
   "integrity" "sha512-oh/6byDPnL1zeNXFrDXFLyZjkr1MsBG667IM792caf1L2UPOOMf65NFzjUH/ltyfwjAGfs1rsX1eftK0jC/KIg=="
   "resolved" "https://registry.npmjs.org/@types/html-minifier-terser/-/html-minifier-terser-6.1.0.tgz"
@@ -1181,10 +1186,27 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^18.0.10":
-  "integrity" "sha512-dIugadZuIPrRzvIEevIu7A1smqOAjkSMv8qOfwPt9Ve6i6JT/FQcCHyk2qIAxwsQNKZt5/oGR0T4z9h2dXRAkg=="
-  "resolved" "https://registry.npmjs.org/@types/react/-/react-18.0.10.tgz"
-  "version" "18.0.10"
+"@types/react-router-dom@^5.3.3":
+  "integrity" "sha512-kpqnYK4wcdm5UaWI3fLcELopqLrHgLqNsdpHauzlQktfkHL3npOSwtj1Uz9oKBAzs7lFtVkV8j83voAz2D8fhw=="
+  "resolved" "https://registry.npmjs.org/@types/react-router-dom/-/react-router-dom-5.3.3.tgz"
+  "version" "5.3.3"
+  dependencies:
+    "@types/history" "^4.7.11"
+    "@types/react" "*"
+    "@types/react-router" "*"
+
+"@types/react-router@*":
+  "integrity" "sha512-YYknwy0D0iOwKQgz9v8nOzt2J6l4gouBmDnWqUUznltOTaon+r8US8ky8HvN0tXvc38U9m6z/t2RsVsnd1zM0g=="
+  "resolved" "https://registry.npmjs.org/@types/react-router/-/react-router-5.1.18.tgz"
+  "version" "5.1.18"
+  dependencies:
+    "@types/history" "^4.7.11"
+    "@types/react" "*"
+
+"@types/react@*", "@types/react@^18.0.11":
+  "integrity" "sha512-JxSwm54IgMW4XTR+zFF5QpNx4JITmFbB4WHR2J0vg9RpjNeyqEMlODXsD2e64br6GX70TL0UYjZJETpyyC1WdA=="
+  "resolved" "https://registry.npmjs.org/@types/react/-/react-18.0.11.tgz"
+  "version" "18.0.11"
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -2484,6 +2506,13 @@
   "resolved" "https://registry.npmjs.org/he/-/he-1.2.0.tgz"
   "version" "1.2.0"
 
+"history@^5.2.0":
+  "integrity" "sha512-ZqaKwjjrAYUYfLG+htGaIIZ4nioX2L70ZUMIFysS3xvBsSG4x/n1V6TXV3N8ZYNuFGlDirFg32T7B6WOUPDYcQ=="
+  "resolved" "https://registry.npmjs.org/history/-/history-5.3.0.tgz"
+  "version" "5.3.0"
+  dependencies:
+    "@babel/runtime" "^7.7.6"
+
 "hpack.js@^2.1.6":
   "integrity" "sha512-zJxVehUdMGIKsRaNt7apO2Gqp0BdqW5yaiGHXXmbpvxgBYVZnAql+BJb4RO5ad2MgpbZKn5G6nMnegrH1FcNYQ=="
   "resolved" "https://registry.npmjs.org/hpack.js/-/hpack.js-2.1.6.tgz"
@@ -3503,7 +3532,7 @@
     "iconv-lite" "0.4.24"
     "unpipe" "1.0.0"
 
-"react-dom@^18.1.0":
+"react-dom@^18.1.0", "react-dom@>=16.8":
   "integrity" "sha512-fU1Txz7Budmvamp7bshe4Zi32d0ll7ect+ccxNu9FlObT605GOEB8BfO4tmRJ39R5Zj831VCpvQ05QPBW5yb+w=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-18.1.0.tgz"
   "version" "18.1.0"
@@ -3511,7 +3540,22 @@
     "loose-envify" "^1.1.0"
     "scheduler" "^0.22.0"
 
-"react@^18.1.0":
+"react-router-dom@^6.3.0":
+  "integrity" "sha512-uaJj7LKytRxZNQV8+RbzJWnJ8K2nPsOOEuX7aQstlMZKQT0164C+X2w6bnkqU3sjtLvpd5ojrezAyfZ1+0sStw=="
+  "resolved" "https://registry.npmjs.org/react-router-dom/-/react-router-dom-6.3.0.tgz"
+  "version" "6.3.0"
+  dependencies:
+    "history" "^5.2.0"
+    "react-router" "6.3.0"
+
+"react-router@6.3.0":
+  "integrity" "sha512-7Wh1DzVQ+tlFjkeo+ujvjSqSJmkt1+8JO+T5xklPlgrh70y7ogx75ODRW0ThWhY7S+6yEDks8TYrtQe/aoboBQ=="
+  "resolved" "https://registry.npmjs.org/react-router/-/react-router-6.3.0.tgz"
+  "version" "6.3.0"
+  dependencies:
+    "history" "^5.2.0"
+
+"react@^18.1.0", "react@>=16.8":
   "integrity" "sha512-4oL8ivCz5ZEPyclFQXaNksK3adutVS8l2xzZU0cqEFrE9Sb7fC0EFK5uEk74wIreL1DERyjvsU915j1pcT2uEQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.1.0.tgz"
   "version" "18.1.0"

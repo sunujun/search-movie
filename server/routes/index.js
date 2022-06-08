@@ -10,4 +10,11 @@ router.get('/test', (req, res) => {
     })
 })
 
+router.get('/title', (req, res) => {
+    db.query('SELECT * FROM movie ORDER BY title', (err, data) => {
+        if (!err) res.send({ products: data })
+        else res.send(err)
+    })
+})
+
 module.exports = router

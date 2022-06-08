@@ -1,21 +1,20 @@
-import React, { useEffect } from 'react'
-import axios from 'axios'
+import React from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import MovieList from './MovieList'
+import MovieDetail from './MovieDetail'
 import Header from './Header'
 
 const App = () => {
-    // 서버에서 받은 데이터를 console로 찍어서 확인한다.
-    useEffect(() => {
-        axios
-            .get('/api/test')
-            .then(res => console.log(res))
-            .catch()
-    })
-
     return (
-        <>
-            <Header text="Search Movie" />
-            <div>시작</div>
-        </>
+        <BrowserRouter>
+            <Header text='Movie List' />
+            <div className="app">
+                <Routes>
+                    <Route path="/" element={<MovieList />} />
+                    <Route path="/movie/*" element={<MovieDetail />} />
+                </Routes>
+            </div>
+        </BrowserRouter>
     )
 }
 export default App
