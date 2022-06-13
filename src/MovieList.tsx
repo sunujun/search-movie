@@ -3,89 +3,132 @@ import axios from 'axios'
 import MovieTable from './MovieTable'
 import SearchInput from './SearchInput'
 
-interface Movie {
-    director: string
-    enter_date: string
-    id: number
-    image: string
-    journalist_count: number
-    journalist_score: number
-    movie_rate: string
-    netizen_count: number
-    netizen_rate: number
-    opening_date: string
-    playing_time: string
-    scope: string
+interface MovieData {
+    mv_code: number
     title: string
+    domestic_mv_rate: string
+    netizen_score: number
+    netizen_count?: number
+    journalist_score: number
+    journalist_count?: number
+    playing_time: string
+    opening_date: string
+    image_src: string
+}
+
+interface Movie {
+    id: number
+    title: string
+    movie_rate: string
+    netizen_rate: number
+    netizen_count?: number
+    journalist_score: number
+    journalist_count?: number
+    playing_time: string
+    opening_date: string
+    image: string
 }
 
 const MovieList = () => {
     const [movieDataList, setMovieDataList] = useState<Movie[]>([])
-    const [searchTitle, setSearchTitle] = useState('')
-    const getMovieData = useCallback(async () => {
-        if (searchTitle !== '') {
-            try {
-                const res = await axios.get('/api/search', {
-                    params: {
-                        title: searchTitle,
-                    },
-                })
-                const inputData = await res.data.map((rowData: Movie) => ({
-                    director: rowData.director,
-                    enter_date: rowData.enter_date,
-                    id: rowData.id,
-                    image: rowData.image,
-                    journalist_count: rowData.journalist_count,
-                    journalist_score: rowData.journalist_score,
-                    movie_rate: rowData.movie_rate,
-                    netizen_count: rowData.netizen_count,
-                    netizen_rate: rowData.netizen_rate,
-                    opening_date: rowData.opening_date,
-                    playing_time: rowData.playing_time,
-                    scope: rowData.scope,
-                    title: rowData.title,
-                }))
-                setMovieDataList(inputData)
-            } catch (e) {
-                console.error(e)
-            }
-        } else {
-            try {
-                // 데이터를 받아오는 동안 시간이 소요됨으로 await로 대기
-                const res = await axios.get('/api/test')
-                // 받아온 데이터로 다음 작업을 진행하기 위해 await로 대기
-                // 받아온 데이터를 map 해주어 rowData 별로 inputData 선언
-                const inputData = await res.data.products.map((rowData: Movie) => ({
-                    director: rowData.director,
-                    enter_date: rowData.enter_date,
-                    id: rowData.id,
-                    image: rowData.image,
-                    journalist_count: rowData.journalist_count,
-                    journalist_score: rowData.journalist_score,
-                    movie_rate: rowData.movie_rate,
-                    netizen_count: rowData.netizen_count,
-                    netizen_rate: rowData.netizen_rate,
-                    opening_date: rowData.opening_date,
-                    playing_time: rowData.playing_time,
-                    scope: rowData.scope,
-                    title: rowData.title,
-                }))
-                setMovieDataList(inputData)
-            } catch (e) {
-                console.error(e)
-            }
+    const selectList = ['영화 제목', '배우 이름', '감독 이름', '장르', '년도', '국가']
+    const [selected, setSelected] = useState('영화 제목')
+    const [searchData, setSearchData] = useState('')
+    const [order, setOrder] = useState('title')
+
+    const getShowingMovieData = useCallback(async () => {
+        try {
+            const res = await axios.get(`/api/movie_${order}`, {
+                params: {
+                    title: selected === '영화 제목' ? searchData : '',
+                    year: selected === '년도' ? searchData : '',
+                    director: selected === '감독 이름' ? searchData : '',
+                    actor: selected === '배우 이름' ? searchData : '',
+                    genre: selected === '장르' ? searchData : '',
+                    nation: selected === '국가' ? searchData : '',
+                },
+            })
+            const inputData = await res.data.products.map((rowData: MovieData) => ({
+                id: rowData.mv_code,
+                title: rowData.title,
+                movie_rate: rowData.domestic_mv_rate,
+                netizen_rate: rowData.netizen_score,
+                journalist_score: rowData.journalist_score,
+                playing_time: rowData.playing_time,
+                opening_date: rowData.opening_date,
+                image: rowData.image_src,
+            }))
+            setMovieDataList(inputData)
+        } catch (e) {
+            console.error(e)
         }
-    }, [searchTitle])
+    }, [order, searchData])
 
     useEffect(() => {
-        console.log(movieDataList.length)
-        getMovieData()
-    }, [getMovieData])
+        getShowingMovieData()
+    }, [getShowingMovieData])
+
+    const handleRadioButton = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setOrder(e.target.value)
+    }
+
+    const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelected(e.target.value)
+    }
 
     return (
         <div>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <SearchInput setSearchTitle={setSearchTitle} />
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
+                <select onChange={handleSelect} value={selected}>
+                    {selectList.map(item => (
+                        <option value={item} key={item}>
+                            {item}
+                        </option>
+                    ))}
+                </select>
+                <SearchInput setSearchData={setSearchData} />
+            </div>
+            <div>
+                <label>
+                    <input type="radio" value="title" checked={order === 'title'} onChange={handleRadioButton} />
+                    제목순
+                </label>
+                <label>
+                    <input
+                        type="radio"
+                        value="opening_date"
+                        checked={order === 'opening_date'}
+                        onChange={handleRadioButton}
+                    />
+                    개봉순
+                </label>
+                <label>
+                    <input
+                        type="radio"
+                        value="playing_time"
+                        checked={order === 'playing_time'}
+                        onChange={handleRadioButton}
+                    />
+                    상영 시간순
+                </label>
+                <label>
+                    <input
+                        type="radio"
+                        value="netizen_score"
+                        checked={order === 'netizen_score'}
+                        onChange={handleRadioButton}
+                    />
+                    네티즌 평점순
+                </label>
+                <label>
+                    <input
+                        type="radio"
+                        value="journalist_score"
+                        checked={order === 'journalist_score'}
+                        onChange={handleRadioButton}
+                    />
+                    기자·평론가 평점순
+                </label>
             </div>
             <MovieTable movieDataList={movieDataList} />
         </div>

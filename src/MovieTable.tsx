@@ -5,19 +5,16 @@ import TableRow from './TableRow'
 import './MovieTable.css'
 
 interface Movie {
-    director: string
-    enter_date: string
     id: number
-    image: string
-    journalist_count: number
-    journalist_score: number
-    movie_rate: string
-    netizen_count: number
-    netizen_rate: number
-    opening_date: string
-    playing_time: string
-    scope: string
     title: string
+    movie_rate: string
+    netizen_rate: number
+    netizen_count?: number
+    journalist_score: number
+    journalist_count?: number
+    playing_time: string
+    opening_date: string
+    image: string
 }
 
 const TitleTableHeader = styled.th`
@@ -59,6 +56,13 @@ const DirectorTableHeader = styled.th`
     border-bottom: 1px solid #444444;
 `
 
+const ActorTableHeader = styled.th`
+    width: 350px;
+    height: 40px;
+    text-align: center;
+    border-bottom: 1px solid #444444;
+`
+
 const ScoreTableHeader = styled.th`
     width: 130px;
     height: 40px;
@@ -66,7 +70,14 @@ const ScoreTableHeader = styled.th`
     border-bottom: 1px solid #444444;
 `
 
-const MovieTable = (props: {movieDataList: Movie[]}) => {
+const NationTableHeader = styled.th`
+    width: 140px;
+    height: 40px;
+    text-align: center;
+    border-bottom: 1px solid #444444;
+`
+
+const MovieTable = (props: { movieDataList: Movie[] }) => {
     const [pageNumber, setPageNumber] = useState(1)
     const [itemsCountPerPage] = useState(20)
     const lastMovieIndex = pageNumber * itemsCountPerPage
@@ -94,9 +105,10 @@ const MovieTable = (props: {movieDataList: Movie[]}) => {
                             <PlayingTimeTableHeader>상영 시간</PlayingTimeTableHeader>
                             <OpeningDateTableHeader>개봉 일자</OpeningDateTableHeader>
                             <DirectorTableHeader>감독</DirectorTableHeader>
-                            {/* <th>출연</th> */}
+                            <ActorTableHeader>출연</ActorTableHeader>
                             <ScoreTableHeader>네티즌 평점</ScoreTableHeader>
                             <ScoreTableHeader>기자·평론가 평점</ScoreTableHeader>
+                            <NationTableHeader>국가</NationTableHeader>
                         </tr>
                     </thead>
                     <TableRow movieDataList={currentMovie} />

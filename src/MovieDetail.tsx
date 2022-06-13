@@ -2,19 +2,19 @@ import React from 'react'
 import { useLocation } from 'react-router-dom'
 
 interface Movie {
-    director: string,
-    enter_date: string,
     id: number,
-    image: string
-    journalist_count: number,
-    journalist_score: number,   
-    movie_rate: string
-    netizen_count: number,
-    netizen_rate: number,
-    opening_date: string,
-    playing_time: string,
-    scope: string,
     title: string
+    movie_rate: string
+    director: string,
+    actor: string,
+    genre: string,
+    netizen_rate: number,
+    netizen_count: number,
+    journalist_score: number,   
+    journalist_count: number,
+    playing_time: string,
+    opening_date: string,
+    image: string
 }
 
 interface LocationState {
@@ -33,10 +33,11 @@ const MovieDetail = () => {
                     <tbody>
                         <tr>
                             <td className="listTableIndex">{location.state.title}</td>
-                            <td className="listTableIndex">{location.state.scope}</td>
-                            <td className="listTableIndex">{location.state.director}</td>
-                            <td className="listTableIndex">{location.state.playing_time}</td>
                             <td className="listTableIndex">{location.state.movie_rate}</td>
+                            <td className="listTableIndex">{location.state.genre}</td>
+                            <td className="listTableIndex">{location.state.director}</td>
+                            <td className="listTableIndex">{location.state.actor}</td>
+                            <td className="listTableIndex">{location.state.playing_time}</td>
                             <td className="listTableIndex">{location.state.journalist_count}</td>
                             <td className="listTableIndex">{location.state.journalist_score}</td>
                             <td className="listTableIndex">{location.state.netizen_count}</td>

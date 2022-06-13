@@ -2,19 +2,16 @@ import React from 'react'
 import TableData from './TableData'
 
 interface Movie {
-    director: string,
-    enter_date: string,
-    id: number,
-    image: string
-    journalist_count: number,
-    journalist_score: number,
-    movie_rate: string
-    netizen_count: number,
-    netizen_rate: number,
-    opening_date: string,
-    playing_time: string,
-    scope: string,
+    id: number
     title: string
+    movie_rate: string
+    netizen_rate: number
+    netizen_count?: number
+    journalist_score: number
+    journalist_count?: number
+    playing_time: string
+    opening_date: string
+    image: string
 }
 
 const TableRow = (props: { movieDataList: Movie[] }) => {

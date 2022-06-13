@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const SearchInput = (props: { setSearchTitle: React.Dispatch<React.SetStateAction<string>> }) => {
+const SearchInput = (props: { setSearchData: React.Dispatch<React.SetStateAction<string>> }) => {
     const [text, setText] = useState('')
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -9,12 +9,13 @@ const SearchInput = (props: { setSearchTitle: React.Dispatch<React.SetStateActio
 
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
-            props.setSearchTitle(text)
+            props.setSearchData(text)
         }
     }
 
     return (
         <input
+            style={{ width: '300px' }}
             name="userInput"
             type="text"
             className="search-input"
