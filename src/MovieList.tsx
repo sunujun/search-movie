@@ -42,17 +42,18 @@ const MovieList = () => {
     const [selected, setSelected] = useState('영화 제목')
     const [searchData, setSearchData] = useState('')
     const [order, setOrder] = useState('title')
+    const [selectedSearchType, setSelectedSearchType] = useState('영화 제목')
 
     const getShowingMovieData = useCallback(async () => {
         try {
             const res = await axios.get(`/api/movie_${order}`, {
                 params: {
-                    title: selected === '영화 제목' ? searchData : '',
-                    year: selected === '년도' ? searchData : '',
-                    director: selected === '감독 이름' ? searchData : '',
-                    actor: selected === '배우 이름' ? searchData : '',
-                    genre: selected === '장르' ? searchData : '',
-                    nation: selected === '국가' ? searchData : '',
+                    title: selectedSearchType === '영화 제목' ? searchData : '',
+                    year: selectedSearchType === '년도' ? searchData : '',
+                    director: selectedSearchType === '감독 이름' ? searchData : '',
+                    actor: selectedSearchType === '배우 이름' ? searchData : '',
+                    genre: selectedSearchType === '장르' ? searchData : '',
+                    nation: selectedSearchType === '국가' ? searchData : '',
                 },
             })
             const inputData = await res.data.products.map((rowData: MovieData) => ({
@@ -96,7 +97,7 @@ const MovieList = () => {
                         </option>
                     ))}
                 </select>
-                <SearchInput setSearchData={setSearchData} />
+                <SearchInput setSearchData={setSearchData} setSelectedSearchType={setSelectedSearchType} selected={selected}/>
             </div>
             <div>
                 <label>
