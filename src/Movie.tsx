@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navigate, Route, Router, Routes } from 'react-router'
+import { Route, Routes } from 'react-router'
 import MovieDetail from './MovieDetail'
 import Review from './Review'
 

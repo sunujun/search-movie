@@ -1,71 +1,10 @@
-import axios from 'axios'
-import React, { useCallback, useEffect, useState } from 'react'
+import React from 'react'
 import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
-
-interface Movie {
-    id: number
-    title: string
-    movie_rate: string
-    netizen_rate: number
-    netizen_count?: number
-    audience_rate: number
-    journalist_score: number
-    journalist_count?: number
-    playing_time: string
-    opening_date: string
-    image: string
-    s_title: string
-    s_text: string
-}
 
 interface LocationState {
     pathname: string
     state: ReviewData
-}
-
-interface GenreData {
-    mv_code: number
-    genre: string
-}
-
-interface DirectorData {
-    mv_code: number
-    d_name: string
-    d_src: string
-}
-
-interface ActorData {
-    mv_code: number
-    a_name: string
-    a_src: string
-    a_part: string
-    a_role: string
-}
-
-interface NationData {
-    mv_code: number
-    nation: string
-}
-
-interface PhotoData {
-    mv_code: number
-    photo_src: string
-}
-
-interface OneLineData {
-    mv_code: number
-    n_score: number
-    audience_check: boolean
-    n_name: string
-    n_text: string
-}
-
-interface ScriptData {
-    mv_code: number
-    a_role: string
-    a_name: string
-    s_script: string
 }
 
 interface ReviewData {
@@ -75,17 +14,6 @@ interface ReviewData {
     r_posted_date: string
     r_text: string
 }
-
-const DetailMainText = styled.h4`
-    margin-top: 4px;
-    margin-right: 10px;
-    font-weight: bold;
-`
-
-const DetailText = styled.h4`
-    margin-top: 4px;
-    margin-right: 10px;
-`
 
 const Review = () => {
     const location = useLocation() as LocationState
