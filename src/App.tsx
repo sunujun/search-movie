@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import MovieList from './MovieList'
-import MovieDetail from './MovieDetail'
+import Movie from './Movie'
 
 const App = () => {
     return (
@@ -9,7 +9,7 @@ const App = () => {
             <div className="app">
                 <Routes>
                     <Route path="/" element={<MovieList />} />
-                    <Route path="/movie/*" element={<MovieDetail />} />
+                    <Route path="/movie/*" element={<Movie />} />
                 </Routes>
             </div>
         </BrowserRouter>

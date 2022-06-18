@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useCallback, useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 interface Movie {
@@ -68,6 +68,15 @@ interface ScriptData {
     s_script: string
 }
 
+interface ReviewData {
+    mv_code: number
+    r_code: number
+    r_name: string
+    r_title: string
+    r_posted_date: string
+    r_text: string
+}
+
 const DetailMainText = styled.h4`
     margin-top: 4px;
     margin-right: 10px;
@@ -88,6 +97,7 @@ const MovieDetail = () => {
     const [photo, setPhoto] = useState<PhotoData[]>([])
     const [oneLine, setOneLine] = useState<OneLineData[]>([])
     const [script, setScript] = useState<ScriptData[]>([])
+    const [review, setReview] = useState<ReviewData[]>([])
 
     const getMovieData = useCallback(async () => {
         try {
@@ -133,7 +143,7 @@ const MovieDetail = () => {
             })
             const nationInputData = await nationRes.data.products.map((rowData: NationData) => ({
                 mv_code: rowData.mv_code,
-                nation: rowData.nation
+                nation: rowData.nation,
             }))
             setNation(nationInputData.map((rowData: NationData) => rowData.nation))
             const photoRes = await axios.get('/api/photo', {
@@ -143,7 +153,7 @@ const MovieDetail = () => {
             })
             const photoInputData = await photoRes.data.products.map((rowData: PhotoData) => ({
                 mv_code: rowData.mv_code,
-                photo_src: rowData.photo_src
+                photo_src: rowData.photo_src,
             }))
             setPhoto(photoInputData)
             const oneLineRes = await axios.get('/api/one_line', {
@@ -152,7 +162,7 @@ const MovieDetail = () => {
                 },
             })
             const oneLineInputData = await oneLineRes.data.products.map((rowData: OneLineData) => ({
-                mv_code:  rowData.mv_code,
+                mv_code: rowData.mv_code,
                 n_score: rowData.n_score,
                 audience_check: rowData.audience_check,
                 n_name: rowData.n_name,
@@ -171,14 +181,33 @@ const MovieDetail = () => {
                 s_script: rowData.s_script,
             }))
             setScript(scriptInputData)
+            const reviewRes = await axios.get('/api/review', {
+                params: {
+                    mv_code: location.state.id,
+                },
+            })
+            const reviewInputData = await reviewRes.data.products.map((rowData: ReviewData) => ({
+                mv_code: rowData.mv_code,
+                r_name: rowData.r_name,
+                r_posted_date: rowData.r_posted_date,
+                r_text: rowData.r_text,
+                r_title: rowData.r_title,
+                r_code: rowData.r_code,
+            }))
+            setReview(reviewInputData)
         } catch (e) {
             console.error(e)
         }
-}, [])
+    }, [])
 
-useEffect(() => {
-    getMovieData()
-}, [getMovieData])
+    useEffect(() => {
+        getMovieData()
+    }, [getMovieData])
+
+    const navigate = useNavigate()
+    const toReview = (id: number) => {
+        navigate(`/movie/${location.state.id}/review/${id}`, { state: review.find(item => item.r_code === id) })
+    }
 
     return (
         <div style={{ marginLeft: '50px' }}>
@@ -376,6 +405,16 @@ useEffect(() => {
             </div>
             <div style={{ marginTop: '50px' }}>
                 <DetailMainText>리뷰</DetailMainText>
+                {review.length !== 0 &&
+                    review.map((item, index) => {
+                        return (
+                            <div key={item.r_code} style={{ marginBottom: '20px' }}>
+                                <a onClick={() => toReview(item.r_code)}>
+                                    {index + 1}. {item.r_title}
+                                </a>
+                            </div>
+                        )
+                    })}
             </div>
         </div>
     )
