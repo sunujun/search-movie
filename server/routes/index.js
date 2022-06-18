@@ -292,4 +292,52 @@ router.get('/nation', (req, res) => {
     )
 })
 
+router.get('/photo', (req, res) => {
+    const mv_code = req.query.mv_code
+    db.query(
+        'select * from photo, movie where photo.mv_code = movie.mv_code and movie.mv_code = ?',
+        mv_code,
+        (err, data) => {
+            if (!err) res.send({ products: data })
+            else res.send(err)
+        },
+    )
+})
+
+router.get('/one_line', (req, res) => {
+    const mv_code = req.query.mv_code
+    db.query(
+        'select * from netizen_point, movie where netizen_point.mv_code = movie.mv_code and movie.mv_code = ?',
+        mv_code,
+        (err, data) => {
+            if (!err) res.send({ products: data })
+            else res.send(err)
+        },
+    )
+})
+
+router.get('/script', (req, res) => {
+    const mv_code = req.query.mv_code
+    db.query(
+        'select * from script, movie where script.mv_code = movie.mv_code and movie.mv_code = ?',
+        mv_code,
+        (err, data) => {
+            if (!err) res.send({ products: data })
+            else res.send(err)
+        },
+    )
+})
+
+router.get('/review', (req, res) => {
+    const mv_code = req.query.mv_code
+    db.query(
+        'select * from review, movie where review.mv_code = movie.mv_code and movie.mv_code = ?',
+        mv_code,
+        (err, data) => {
+            if (!err) res.send({ products: data })
+            else res.send(err)
+        },
+    )
+})
+
 module.exports = router

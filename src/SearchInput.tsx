@@ -21,7 +21,7 @@ const SearchInput = (props: { setSearchData: React.Dispatch<React.SetStateAction
             className="search-input"
             onChange={onChange}
             value={text}
-            placeholder="작품 제목을 검색해보세요."
+            placeholder="검색해보세요."
             onKeyPress={handleKeyPress}
         />
     )

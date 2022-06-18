@@ -9,11 +9,14 @@ interface MovieData {
     domestic_mv_rate: string
     netizen_score: number
     netizen_count?: number
+    netizen_audience_score: number
     journalist_score: number
     journalist_count?: number
     playing_time: string
     opening_date: string
     image_src: string
+    s_title: string
+    s_text: string
 }
 
 interface Movie {
@@ -22,11 +25,15 @@ interface Movie {
     movie_rate: string
     netizen_rate: number
     netizen_count?: number
+    audience_rate: number
+    audience_count?: number
     journalist_score: number
     journalist_count?: number
     playing_time: string
     opening_date: string
     image: string
+    s_title: string
+    s_text: string
 }
 
 const MovieList = () => {
@@ -53,10 +60,13 @@ const MovieList = () => {
                 title: rowData.title,
                 movie_rate: rowData.domestic_mv_rate,
                 netizen_rate: rowData.netizen_score,
+                audience_rate: rowData.netizen_audience_score,
                 journalist_score: rowData.journalist_score,
                 playing_time: rowData.playing_time,
                 opening_date: rowData.opening_date,
                 image: rowData.image_src,
+                s_title: rowData.s_title,
+                s_text: rowData.s_text,
             }))
             setMovieDataList(inputData)
         } catch (e) {

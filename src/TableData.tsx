@@ -38,7 +38,7 @@ interface NationData {
 const TableData = (props: { movie: Movie }) => {
     const navigate = useNavigate()
     const toMovie = (id: number) => {
-        navigate(`/movie/${id}`, { state: props })
+        navigate(`/movie/${id}`, { state: props.movie })
     }
     const [genre, setGenre] = useState<GenreData[]>([])
     const [actor, setActor] = useState<ActorData[]>([])
