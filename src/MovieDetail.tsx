@@ -314,7 +314,13 @@ const MovieDetail = () => {
                 {(director.length !== 0 || actor.length !== 0) && (
                     <div style={{ marginTop: '50px' }}>
                         <DetailMainText>배우·제작진</DetailMainText>
-                        <div style={{ flexDirection: 'row', display: 'flex' }}>
+                        <div
+                            style={{
+                                width: '480px',
+                                display: 'grid',
+                                gridTemplateRows: '1fr ',
+                                gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr 1fr 1fr',
+                            }}>
                             {director.length !== 0 &&
                                 director.map(item => {
                                     return (
@@ -348,7 +354,6 @@ const MovieDetail = () => {
                         display: 'grid',
                         gridTemplateRows: '1fr ',
                         gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr 1fr 1fr',
-                        // backgroundColor: 'gray',
                     }}>
                     {photo.length !== 0 &&
                         photo.map(item => {
@@ -361,7 +366,7 @@ const MovieDetail = () => {
                 </div>
             </div>
             <div style={{ marginTop: '50px' }}>
-                <DetailMainText>평점</DetailMainText>
+                <DetailMainText>한줄평</DetailMainText>
                 <div>
                     {oneLine.length !== 0 &&
                         oneLine.map(item => {

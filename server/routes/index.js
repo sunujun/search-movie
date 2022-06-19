@@ -18,7 +18,7 @@ router.get('/movie_title', (req, res) => {
         searchData = [req.query.year]
     } else if (req.query.director !== '') {
         sql =
-            'select * from director, direct, movie  where  director.d_code = direct.d_code and movie.mv_code = direct.mv_code and director.d_name =' +
+            'select * from director, directing, movie  where  director.d_code = directing.d_code and movie.mv_code = directing.mv_code and director.d_name =' +
             '?' +
             'ORDER BY movie.title'
         searchData = [req.query.director]
@@ -66,7 +66,7 @@ router.get('/movie_opening_date', (req, res) => {
         searchData = [req.query.year]
     } else if (req.query.director !== '') {
         sql =
-            'select * from director, direct, movie  where  director.d_code = direct.d_code and movie.mv_code = direct.mv_code and director.d_name =' +
+            'select * from director, directing, movie  where  director.d_code = directing.d_code and movie.mv_code = directing.mv_code and director.d_name =' +
             '?' +
             'ORDER BY movie.opening_date desc'
         searchData = [req.query.director]
@@ -114,7 +114,7 @@ router.get('/movie_playing_time', (req, res) => {
         searchData = [req.query.year]
     } else if (req.query.director !== '') {
         sql =
-            'select * from director, direct, movie  where  director.d_code = direct.d_code and movie.mv_code = direct.mv_code and director.d_name =' +
+            'select * from director, directing, movie  where  director.d_code = directing.d_code and movie.mv_code = directing.mv_code and director.d_name =' +
             '?' +
             'ORDER BY movie.playing_time desc'
         searchData = [req.query.director]
@@ -162,7 +162,7 @@ router.get('/movie_netizen_score', (req, res) => {
         searchData = [req.query.year]
     } else if (req.query.director !== '') {
         sql =
-            'select * from director, direct, movie  where  director.d_code = direct.d_code and movie.mv_code = direct.mv_code and director.d_name =' +
+            'select * from director, directing, movie  where  director.d_code = directing.d_code and movie.mv_code = directing.mv_code and director.d_name =' +
             '?' +
             'ORDER BY movie.netizen_score desc'
         searchData = [req.query.director]
@@ -210,7 +210,7 @@ router.get('/movie_journalist_score', (req, res) => {
         searchData = [req.query.year]
     } else if (req.query.director !== '') {
         sql =
-            'select * from director, direct, movie  where  director.d_code = direct.d_code and movie.mv_code = direct.mv_code and director.d_name =' +
+            'select * from director, directing, movie  where  director.d_code = directing.d_code and movie.mv_code = directing.mv_code and director.d_name =' +
             '?' +
             'ORDER BY movie.journalist_score desc'
         searchData = [req.query.director]
@@ -259,7 +259,7 @@ router.get('/actor', (req, res) => {
 router.get('/director', (req, res) => {
     const mv_code = req.query.mv_code
     db.query(
-        'select * from director, direct  where  director.d_code = direct.d_code and mv_code = ?',
+        'select * from director, directing  where  director.d_code = directing.d_code and mv_code = ?',
         mv_code,
         (err, data) => {
             if (!err) res.send({ products: data })
